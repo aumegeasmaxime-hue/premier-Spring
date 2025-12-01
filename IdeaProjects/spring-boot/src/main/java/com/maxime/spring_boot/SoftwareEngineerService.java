@@ -22,4 +22,8 @@ public class SoftwareEngineerService {
                 .orElseThrow(()->new IllegalArgumentException("Software Engineerwith id " + id + " not found"));
 
     }
+
+    public void createANewSoftwareEngineer(SoftwareEngineer softwareEngineer) {
+        repository.save(softwareEngineer);
+    }
 }
