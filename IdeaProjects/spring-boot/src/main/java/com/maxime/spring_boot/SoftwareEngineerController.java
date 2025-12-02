@@ -3,6 +3,7 @@ package com.maxime.spring_boot;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Map;
 
 @RestController
 @RequestMapping("api/v1/software-engineers")
@@ -40,6 +41,22 @@ public class SoftwareEngineerController {
             @RequestBody SoftwareEngineer softwareEngineer){
         service.createANewSoftwareEngineer(softwareEngineer);
     }
+    @PutMapping("/{id}")
+    public SoftwareEngineer updateSoftwareEngineer(
+            @PathVariable Integer id,
+            @RequestBody SoftwareEngineer updatedEngineer
+    ) {
+        return service.updateSoftwareEngineer(id, updatedEngineer);
+    }
+    @PatchMapping("v1/{id}")
+    public void partialUpdateSoftwareEngineer(
+            @PathVariable Integer id,
+            @RequestBody Map<String,Object> update
+            )
+    {
+        service.partialUpdateSoftwareEngineerV1(id,update);
+    }
+
 
 
 
