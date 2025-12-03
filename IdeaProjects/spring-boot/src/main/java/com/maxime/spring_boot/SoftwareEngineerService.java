@@ -1,8 +1,11 @@
 package com.maxime.spring_boot;
 
+import org.hibernate.sql.Delete;
 import org.springframework.stereotype.Service;
+import org.springframework.util.ReflectionUtils;
 import org.springframework.web.bind.annotation.PatchMapping;
 
+import java.lang.reflect.Field;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
@@ -74,5 +77,21 @@ public class SoftwareEngineerService {
                 .orElseThrow(
                         ()->new IllegalArgumentException("Software Engineerwith id " + id + " not found")
                 ));
+    }
+
+    public void partialUpdateSoftwareEngineerV2(Integer id, Map<String, Object> update) {
+        SoftwareEngineer engineerToUpdate = getSoftwareEngineerById(id);
+        update.forEach((key , value)->{
+            Field filed = ReflectionUtils.findField(SoftwareEngineer.class , key);
+            if (filed != null){
+                filed.setAccessible(true);
+                ReflectionUtils.setField(filed,engineerToUpdate,value);
+            }
+        });
+        repository.save(engineerToUpdate);
+    }
+
+    public void deleteSoftwareEngineer(Integer id) {
+        repository.deleteById(id);
     }
 }

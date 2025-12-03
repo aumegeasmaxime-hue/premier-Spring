@@ -54,7 +54,15 @@ public class SoftwareEngineerController {
             @RequestBody Map<String,Object> update
             )
     {
-        service.partialUpdateSoftwareEngineerV1(id,update);
+        //service.partialUpdateSoftwareEngineerV1(id,update);
+        service.partialUpdateSoftwareEngineerV2(id,update);
+    }
+    @DeleteMapping("/{id}")
+    public void deleteSoftwareEngineer(
+            @PathVariable Integer id
+            )
+    {
+        service.deleteSoftwareEngineer(id);
     }
 
 
